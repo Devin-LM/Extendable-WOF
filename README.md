@@ -5,7 +5,7 @@ Custom "Wheel of Fortune"-esque engine with JSON backend for content built in ru
 ## To-Do List
 
 - [ ] Restful API for drop-in frontend support
-- [ ] JSON dependency for phrases
+- [x] JSON dependency for phrases
 - [ ] Documentation
 - [ ] Debug UI
 - [ ] WOF Engine
