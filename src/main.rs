@@ -1,8 +1,10 @@
 use std::hash::Hash;
 use std::{collections::HashMap, fs::File};
 use std::io::Read;
+use std::io;
 use serde::{Deserialize, Serialize};
 use rand::Rng;
+
 
 #[derive(Debug, Deserialize, Serialize)]
 struct Table {
@@ -50,7 +52,30 @@ fn load_game_data() -> Vec<String> {
     return arr;
 }
 
+fn process_input(mut is_running: bool) {
+    let mut input = String::new();
+
+    println!(": ");
+
+    io::stdin().read_line(&mut input).expect("Failed to read user input.");
+
+    if input == "e" {
+        is_running = false;
+    }
+}
+
+fn debug_render() -> () {
+    print!("{}[2J", 27 as char);
+}
+
 fn main() {
+    let mut is_running: bool = true;
     let data = load_game_data();
     println!("{:?}", data);
+
+    while is_running {
+        debug_render();
+        process_input(is_running);
+    }
+
 }
