@@ -30,21 +30,27 @@ where
     Some((random_key, &vec[random_v_index]))
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut file = File::open("datatest/test.json")?;
+// change to something like, "collect question", since this func just reads the file and grabs a
+// random phrase and word
+fn load_game_data() -> Vec<String> {
+    let mut file = File::open("datatest/test.json").unwrap();
 
     let mut contents = String::new();
-    file.read_to_string(&mut contents)?;
+    file.read_to_string(&mut contents).expect("Unable to open file");
 
-    let content: Table = serde_json::from_str(&contents)?;
+    let content: Table = serde_json::from_str(&contents).unwrap();
 
     let map = get_random_key_value_pair(&content.content);
-    println!("{:?}", map);
 
+    let mut arr = Vec::new();
 
-    //println!("Returned: {:?}", get_random_key_value_pair(&content.content));
+    arr.push(map.unwrap().0.to_owned());
+    arr.push(map.unwrap().1.to_owned());
 
-    //println!("Obj: {:?}", content.content.get("characters").unwrap());
+    return arr;
+}
 
-    Ok(())
+fn main() {
+    let data = load_game_data();
+    println!("{:?}", data);
 }
